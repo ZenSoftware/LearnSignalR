@@ -1,0 +1,26 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <title>Groups</title>
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/3.1.7/signalr.min.js"></script>
+    <script>
+        let connection = new signalR.HubConnectionBuilder()
+            .withUrl("/groups")
+            .build();
+
+        connection.on('group_message', data => console.log('group_message', data));
+        connection.start();
+
+        const join = () => connection.send('Join');
+        const leave = () => connection.send('Leave');
+        const message = () => connection.send('Message');
+    </script>
+
+    <h1>Groups</h1>
+</body>
+</html>
